@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjetoFinal.Models;
+using ProjetoFinalProg1.Models;
 
-namespace ProjetoFinal.Data
+namespace ProjetoFinalProg1.Data
 {
     public class DataSet
     {
