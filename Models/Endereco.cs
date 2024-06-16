@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjetoFinal.Models
+namespace ProjetoFinalProg1.Models
 {
     public class Endereco
     {
@@ -15,6 +15,7 @@ namespace ProjetoFinal.Models
         public string Estado { get; set; }
         public string Pais { get; set; }
         public string CEP { get; set; }
+        public Aeroporto Aeroporto { get; set; }
 
     }
 }
