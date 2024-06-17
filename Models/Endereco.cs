@@ -15,7 +15,10 @@ namespace ProjetoFinalProg1.Models
         public string Estado { get; set; }
         public string Pais { get; set; }
         public string CEP { get; set; }
-        public Aeroporto Aeroporto { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Rua}, numero {Numero} - {Bairro}, {Cidade}, {Pais} - {CEP}";
+        }
     }
 }

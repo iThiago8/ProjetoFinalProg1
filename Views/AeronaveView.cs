@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using ProjetoFinalProg1.Models;
 using ProjetoFinalProg1.Controllers;
 
 namespace ProjetoFinalProg1.Views
@@ -14,6 +15,7 @@ namespace ProjetoFinalProg1.Views
 
         public AeronaveView()
         {
+            aeronaveController = new();
             Init();
         }
 
@@ -43,7 +45,7 @@ namespace ProjetoFinalProg1.Views
 
                 try
                 {
-                    Console.Write("Digite um número: ");
+                    Console.WriteLine("Digite um número: ");
                     escolha = Convert.ToInt16(Console.ReadLine());
                     switch (escolha)
                     {
@@ -86,22 +88,126 @@ namespace ProjetoFinalProg1.Views
 
         public void CadastrarAeronave()
         {
-            Console.WriteLine("Menu cadastrar aeronave");
+            Console.WriteLine("");
+            Console.WriteLine("*******************");
+            Console.WriteLine("CADASTRAR AERONAVES");
+            Console.WriteLine("*******************");
+            Console.WriteLine("");
+
+            Aeronave aeronave = new();
+            Console.WriteLine("Qual o numero de poltronas da aeronave?");
+            
+            bool loop = true;
+            do {
+                try
+                {
+                    int NumeroDePoltronas = Convert.ToInt16(Console.ReadLine());
+                    aeronave.NumeroDePoltronas = NumeroDePoltronas;
+
+                    loop = false;
+                }
+                catch
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                }
+            } while (loop);
+
+            try 
+            {
+                aeronaveController.AdicionarAeronave(aeronave);
+                Console.WriteLine("A aeronave foi criada com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Console.WriteLine("Ocorreu um erro. Tente novamente mais tarde.");
+            }
         }
         public void BuscarAeronaves()
         {
-            Console.WriteLine("Menu buscar aeronaves");
+            Console.WriteLine("");
+            Console.WriteLine("****************");
+            Console.WriteLine("BUSCAR AERONAVES");
+            Console.WriteLine("****************");
+            Console.WriteLine("");
 
+            bool loop = true; 
+            int id = 0;
+            do {
+                Console.WriteLine("Digite o ID da aeronave que deseja buscar");
+                try
+                {
+                    id = Convert.ToInt16(Console.ReadLine());
+                    loop = false;
+                }
+                catch
+                {
+                    Console.WriteLine("Algo deu errado! Tente novamente.");
+                }
+            } while (loop);
+
+            Aeronave aeronave = aeronaveController.BuscarPorId(id);
+
+            if (aeronave != null)
+            {
+                Console.WriteLine($"ID da aeronave: {aeronave.IdAeronave}");
+                Console.WriteLine($"Numero de poltronas: {aeronave.NumeroDePoltronas}");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true); 
+            }
+            else
+            {
+                Console.WriteLine("Não foi encontrada nenhuma aeronave com esse ID");
+            }
         }
         public void ListarAeronaves()
         {
-            Console.WriteLine("Menu listar aeronaves");
+            Console.WriteLine("");
+            Console.WriteLine("****************");
+            Console.WriteLine("LISTAR AERONAVES");
+            Console.WriteLine("****************");
+            Console.WriteLine("");
 
+            List<Aeronave> aeronaves = aeronaveController.ListarAeronaves();
+
+            if (aeronaves == null || aeronaves.Count == 0)
+            {
+                Console.WriteLine("Não foram cadastradas nenhuma aeronave!");
+                return;            
+            }
+
+            foreach (var aeronave in aeronaves)
+            {
+                aeronave.ToString();
+            }
         }
         public void RemoverAeronave()
         {
-            Console.WriteLine("Menu remover aeronave");
+            Console.WriteLine("");
+            Console.WriteLine("****************");
+            Console.WriteLine("REMOVER AERONAVE");
+            Console.WriteLine("****************");
+            Console.WriteLine("");
 
+            bool loop = true;
+            do {
+                int IdAeronave;
+                Console.WriteLine("Digite o id da aeronave que deseja remover:");
+                try
+                {
+                    IdAeronave = Convert.ToInt16(Console.ReadLine());
+                    //Aeronave aeronaveRemover = aeronaveController.BuscarPorId(IdAeronave);
+
+                    Console.WriteLine("");
+                }
+                catch 
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
+                }
+
+            } while (loop);
         }
 
     }

@@ -10,18 +10,22 @@ namespace ProjetoFinalProg1.Controllers
     public class EnderecoController
     {
         private EnderecoRepository enderecoRepository;
+        public EnderecoController()
+        {
+            enderecoRepository = new();
+        }
         public void AdicionarEndereco(Endereco endereco)
         {
             enderecoRepository.AdicionarEndereco(endereco);
         }
 
-        public void BuscarPorId(int id)
+        public Endereco BuscarPorId(int id)
         {
-            enderecoRepository.BuscarPorId(id);
+            return enderecoRepository.BuscarPorId(id);
         }
-        public void ListarEnderecos()
+        public List<Endereco> ListarEnderecos()
         {
-            enderecoRepository.ListarEnderecos();
+            return enderecoRepository.ListarEnderecos();
         }
         public void RemoverEndereco(Endereco endereco)
         {
