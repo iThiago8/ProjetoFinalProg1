@@ -10,18 +10,22 @@ namespace ProjetoFinalProg1.Controllers
     public class ViagemController
     {
         private ViagemRepository viagemRepository;
+        public ViagemController()
+        {
+            viagemRepository = new();
+        }
         public void AdicionarViagem(Viagem viagem)
         {
             viagemRepository.AdicionarViagem(viagem);
         }
 
-        public void BuscarPorId(int id)
+        public Viagem BuscarPorId(int id)
         {
-            viagemRepository.BuscarPorId(id);
+            return viagemRepository.BuscarPorId(id);
         }
-        public void ListarViagens()
+        public List<Viagem> ListarViagens()
         {
-            viagemRepository.ListarViagens();
+            return viagemRepository.ListarViagens();
         }
         public void RemoverViagem(Viagem viagem)
         {

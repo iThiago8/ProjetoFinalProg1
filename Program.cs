@@ -1,5 +1,5 @@
 ﻿
-using ProjetoFinal.Models;
+using ProjetoFinalProg1.Models;
 using ProjetoFinalProg1.Views;
 
 bool loop = true;
@@ -18,7 +18,7 @@ do {
     int escolha = -1;
     try
     {
-        Console.Write("Digite um número: ");
+        Console.WriteLine("Digite um número: ");
         escolha = Convert.ToInt16(Console.ReadLine());
 
         switch (escolha)

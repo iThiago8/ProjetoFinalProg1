@@ -36,7 +36,7 @@ namespace ProjetoFinalProg1.Repositories
             return null;
         }
 
-        public List<Aeroporto> ListarAeroporto()
+        public List<Aeroporto> ListarAeroportos()
         {
             return DataSet.Aeroportos;
         }
