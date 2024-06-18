@@ -14,18 +14,18 @@ namespace ProjetoFinalProg1.Controllers
         {
             aeroportoRepository = new();
         }
-        public void AdicionarAeroporto(Aeroporto aeroporto)
+        public void CadastrarAeroporto(Aeroporto aeroporto)
         {
-            aeroportoRepository.AdicionarAeroporto(aeroporto);
+            aeroportoRepository.CadastrarAeroporto(aeroporto);
         }
 
-        public void BuscarPorId(int id)
+        public Aeroporto BuscarPorId(int id)
         {
-            aeroportoRepository.BuscarPorId(id);
+            return aeroportoRepository.BuscarPorId(id);
         }
-        public void ListarAeroportos()
+        public List<Aeroporto> ListarAeroportos()
         {
-            aeroportoRepository.ListarAeroportos();
+            return aeroportoRepository.ListarAeroportos();
         }
         public void RemoverAeroporto(Aeroporto aeroporto)
         {

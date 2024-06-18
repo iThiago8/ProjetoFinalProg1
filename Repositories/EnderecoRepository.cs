@@ -26,7 +26,7 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Enderecos.Add(endereco);
         }
 
-        public Endereco BuscarPorId(int id)
+        public Endereco? BuscarPorId(int id)
         {
             foreach (var endereco in DataSet.Enderecos)
             {

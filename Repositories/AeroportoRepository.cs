@@ -20,13 +20,13 @@ namespace ProjetoFinalProg1.Repositories
 
             return ++id;
         }
-        public void AdicionarAeroporto(Aeroporto aeroporto)
+        public void CadastrarAeroporto(Aeroporto aeroporto)
         {
             aeroporto.IdAeroporto = GeraProximoId();
             DataSet.Aeroportos.Add(aeroporto);
         }
 
-        public Aeroporto BuscarPorId(int id)
+        public Aeroporto? BuscarPorId(int id)
         {
             foreach (var aeroporto in DataSet.Aeroportos)
             {

@@ -18,7 +18,6 @@ namespace ProjetoFinalProg1.Controllers
         {
             aeronaveRepository.AdicionarAeronave(aeronave);
         }
-
         public Aeronave BuscarPorId(int id)
         {
             return aeronaveRepository.BuscarPorId(id);

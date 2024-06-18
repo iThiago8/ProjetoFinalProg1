@@ -26,7 +26,7 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Aeronaves.Add(aeronave);
         }
 
-        public Aeronave BuscarPorId(int id)
+        public Aeronave? BuscarPorId(int id)
         {
             foreach (var aeronave in DataSet.Aeronaves)
             {
