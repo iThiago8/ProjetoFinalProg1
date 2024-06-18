@@ -8,8 +8,6 @@ namespace ProjetoFinalProg1.Models
     public class Aeronave
     {
         public int IdAeronave { get; set; }
-
         public int NumeroDePoltronas { get; set; }
-
     }
 }

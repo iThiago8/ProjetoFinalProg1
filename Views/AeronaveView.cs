@@ -93,7 +93,7 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("");
 
             Aeronave aeronave = new();
-            Console.WriteLine("Qual o numero de poltronas da aeronave?");
+            Console.WriteLine("Qual o número de poltronas da aeronave?");
             
             bool loop = true;
             do {
