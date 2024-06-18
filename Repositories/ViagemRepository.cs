@@ -26,7 +26,7 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Viagens.Add(viagem);
         }
 
-        public Viagem BuscarPorId(int id)
+        public Viagem? BuscarPorId(int id)
         {
             foreach (var viagem in DataSet.Viagens)
             {

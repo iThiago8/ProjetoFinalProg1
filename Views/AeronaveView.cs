@@ -12,13 +12,11 @@ namespace ProjetoFinalProg1.Views
     public class AeronaveView
     {
         private AeronaveController aeronaveController;
-
         public AeronaveView()
         {
             aeronaveController = new();
             Init();
         }
-
         public void Init()
         {
             Console.WriteLine("");
@@ -116,11 +114,17 @@ namespace ProjetoFinalProg1.Views
             {
                 aeronaveController.AdicionarAeronave(aeronave);
                 Console.WriteLine("A aeronave foi criada com sucesso!");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 Console.WriteLine("Ocorreu um erro. Tente novamente mais tarde.");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true);
             }
         }
         public void BuscarAeronaves()
@@ -142,7 +146,7 @@ namespace ProjetoFinalProg1.Views
                 }
                 catch
                 {
-                    Console.WriteLine("Algo deu errado! Tente novamente.");
+                    Console.WriteLine("Entrada inválida! Tente novamente.");
                 }
             } while (loop);
 
@@ -159,6 +163,9 @@ namespace ProjetoFinalProg1.Views
             else
             {
                 Console.WriteLine("Não foi encontrada nenhuma aeronave com esse ID");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true);
             }
         }
         public void ListarAeronaves()
@@ -174,13 +181,22 @@ namespace ProjetoFinalProg1.Views
             if (aeronaves == null || aeronaves.Count == 0)
             {
                 Console.WriteLine("Não foram cadastradas nenhuma aeronave!");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true);
+                
                 return;            
             }
 
             foreach (var aeronave in aeronaves)
             {
-                aeronave.ToString();
+                Console.WriteLine($"ID da aeronave: {aeronave.IdAeronave}");
+                Console.WriteLine($"Numero de poltronas: {aeronave.NumeroDePoltronas}");
+                Console.WriteLine("------------------------------");
             }
+            
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey(true);
         }
         public void RemoverAeronave()
         {
@@ -190,16 +206,14 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("****************");
             Console.WriteLine("");
 
-            bool loop = true;
+            int id = 0;
+            bool loop;
             do {
-                int IdAeronave;
                 Console.WriteLine("Digite o id da aeronave que deseja remover:");
                 try
                 {
-                    IdAeronave = Convert.ToInt16(Console.ReadLine());
-                    //Aeronave aeronaveRemover = aeronaveController.BuscarPorId(IdAeronave);
-
-                    Console.WriteLine("");
+                    id = Convert.ToInt16(Console.ReadLine());
+                    loop = false;
                 }
                 catch 
                 {
@@ -208,6 +222,23 @@ namespace ProjetoFinalProg1.Views
                 }
 
             } while (loop);
+
+            try
+            {
+                Aeronave aeronaveRemover = aeronaveController.BuscarPorId(id);
+                aeronaveController.RemoverAeronave(aeronaveRemover);
+                Console.WriteLine("Aeronave removida com sucesso!");
+                
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true); 
+            }
+            catch
+            {
+                Console.WriteLine("Ocorreu um erro. Tente novamente mais tarde.");
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey(true);
+            }
         }
 
     }
