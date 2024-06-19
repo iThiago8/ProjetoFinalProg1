@@ -26,6 +26,20 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Viagens.Add(viagem);
         }
 
+        public void GeraListaPoltronas(Viagem viagem)
+        {
+            for (int i = 1; i <= viagem.Aeronave.NumeroDePoltronas; i++)
+            {
+                Poltrona poltrona = new()
+                {
+                    IdPoltrona = i,
+                    Tipo = (i % 2 == 0) ? TipoPoltrona.Janela : TipoPoltrona.Corredor,
+                    Livre = true
+                };
+                viagem.Poltronas.Add(poltrona);
+            }
+        }
+
         public Viagem? BuscarPorId(int id)
         {
             foreach (var viagem in DataSet.Viagens)

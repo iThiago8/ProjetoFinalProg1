@@ -2,16 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 using ProjetoFinalProg1.Controllers;
 using ProjetoFinalProg1.Models;
+using ProjetoFinalProg1.Repositories;
 
 namespace ProjetoFinalProg1.Views
 {
     public class ViagemView
     {
         private ViagemController viagemController;
+        private AeronaveController aeronaveController;
+        private AeroportoController aeroportoController;
         public ViagemView()
         {
+            aeroportoController = new();
+            aeronaveController = new();
             viagemController = new();
             Init();
         }
@@ -90,20 +96,113 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("");
 
             Viagem viagem = new();
-            Console.WriteLine("Qual o numero de poltronas da viagem?");
-            
-            bool loop = true;
-            do {
-                try
-                {
-                    int NumeroDePoltronas = Convert.ToInt16(Console.ReadLine());
-                    viagem.NumeroDePoltronas = NumeroDePoltronas;
+            bool loop;
 
-                    loop = false;
+            do {
+                Console.WriteLine("Qual o ID da aeronave que fará a viagem?");
+
+                bool conversaoSucedida = int.TryParse(Console.ReadLine(), out int idAeronave);
+
+                if (conversaoSucedida)
+                {
+                    viagem.Aeronave = aeronaveController.BuscarPorId(idAeronave);
+
+                    if (viagem.Aeronave != null) 
+                        loop = false;
+                    else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhuma aeronave com esse identificador!");
+                        loop = true;
+                    }
                 }
-                catch
+                else
                 {
                     Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
+                }
+            } while (loop);
+
+            do {
+                Console.WriteLine("Qual o ID do aeroporto de origem?");
+
+                bool conversaoSucedida = int.TryParse(Console.ReadLine(), out int idAeroportoDeOrigem);
+
+                if (conversaoSucedida)
+                {
+                    viagem.AeroportoDeOrigem = aeroportoController.BuscarPorId(idAeroportoDeOrigem);
+
+                    if (viagem.AeroportoDeOrigem != null) 
+                        loop = false;
+                    else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhum aeroporto com esse identificador!");
+                        loop = true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
+                }
+
+            } while (loop);
+
+            do {
+                Console.WriteLine("Qual o ID do aeroporto de destino?");
+
+                bool conversaoSucedida = int.TryParse(Console.ReadLine(), out int idAeroportoDeDestino);
+
+                if (conversaoSucedida)
+                {
+                    viagem.AeroportoDeDestino = aeroportoController.BuscarPorId(idAeroportoDeDestino);
+
+                    if (viagem.AeroportoDeDestino != null) 
+                        loop = false;
+                    else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhum aeroporto com esse identificador!");
+                        loop = true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
+                }
+            } while (loop);
+            
+            string formatoDateTime = "dd/MM/yyyy HH:mm";
+            do {
+                Console.WriteLine("Qual será a data e hora de saída? (formato: dd/MM/yyyy HH:mm)");
+
+                bool conversaoSucedida = DateTime.TryParseExact(Console.ReadLine(), formatoDateTime,CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime horaDeSaida);
+
+                if (conversaoSucedida)
+                {
+                    viagem.HoraDeSaida = horaDeSaida;
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
+                }
+            } while (loop);
+
+            do {
+                Console.WriteLine("Qual será a data e hora prevista de chegada? (formato: dd/MM/yyyy HH:mm)");
+
+                bool conversaoSucedida = DateTime.TryParseExact(Console.ReadLine(), formatoDateTime,CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime horaPrevistaDeChegada);
+
+                if (conversaoSucedida)
+                {
+                    viagem.HoraPrevistaDeChegada = horaPrevistaDeChegada;
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente!");
+                    loop = true;
                 }
             } while (loop);
 
@@ -152,7 +251,25 @@ namespace ProjetoFinalProg1.Views
             if (viagem != null)
             {
                 Console.WriteLine($"ID da viagem: {viagem.IdViagem}");
-                Console.WriteLine($"Numero de poltronas: {viagem.NumeroDePoltronas}");
+                Console.WriteLine($"Aeronave: {viagem.Aeronave.IdAeronave}");
+                Console.WriteLine($"Aeropoorto de origem: {viagem.AeroportoDeOrigem.NomeAeroporto}");
+                Console.WriteLine($"Aeropoorto de destino: {viagem.AeroportoDeDestino.NomeAeroporto}");
+                Console.WriteLine($"Hora de saída prevista: {viagem.HoraDeSaida}");
+                Console.WriteLine($"Hora de chegada prevista: {viagem.HoraPrevistaDeChegada}");
+
+                viagemController.GeraListaPoltronas(viagem);
+                int numeroPoltronasOcupadas = 0;
+                int numeroPoltronasLivres = 0;
+                foreach (var poltrona in viagem.Poltronas)
+                {
+                    if (poltrona.Livre)
+                        numeroPoltronasLivres++;
+                    else
+                        numeroPoltronasOcupadas++;
+                }
+
+                Console.WriteLine($"Nº de Poltronas livres: {numeroPoltronasLivres}");
+                Console.WriteLine($"Nº de Poltronas ocupadas: {numeroPoltronasOcupadas}");
 
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey(true); 
@@ -188,7 +305,7 @@ namespace ProjetoFinalProg1.Views
             foreach (var viagem in viagens)
             {
                 Console.WriteLine($"ID da viagem: {viagem.IdViagem}");
-                Console.WriteLine($"Numero de poltronas: {viagem.NumeroDePoltronas}");
+                //Console.WriteLine($"Numero de poltronas: {viagem.NumeroDePoltronas}");
                 Console.WriteLine("------------------------------");
             }
             
