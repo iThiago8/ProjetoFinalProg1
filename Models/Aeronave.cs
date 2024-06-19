@@ -9,5 +9,10 @@ namespace ProjetoFinalProg1.Models
     {
         public int IdAeronave { get; set; }
         public int NumeroDePoltronas { get; set; }
+        public override string ToString()
+        {
+            return $"ID: {IdAeronave}\n"
+                + $"Número de poltronas: {NumeroDePoltronas}\n";
+        }
     }
 }

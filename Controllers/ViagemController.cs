@@ -19,9 +19,9 @@ namespace ProjetoFinalProg1.Controllers
             viagemRepository.AdicionarViagem(viagem);
         }
 
-        public void GeraListaPoltronas(Viagem viagem)
+        public List<Poltrona> GeraListaPoltronas(Viagem viagem)
         {
-            viagemRepository.GeraListaPoltronas(viagem);
+            return viagemRepository.GeraListaPoltronas(viagem);
         }
         public Viagem BuscarPorId(int id)
         {
