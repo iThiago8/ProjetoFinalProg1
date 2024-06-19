@@ -110,7 +110,10 @@ namespace ProjetoFinalProg1.Views
                     if (viagem.Aeronave != null) 
                         loop = false;
                     else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhuma aeronave com esse identificador!");
                         loop = true;
+                    }
                 }
                 else
                 {
@@ -131,7 +134,10 @@ namespace ProjetoFinalProg1.Views
                     if (viagem.AeroportoDeOrigem != null) 
                         loop = false;
                     else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhum aeroporto com esse identificador!");
                         loop = true;
+                    }
                 }
                 else
                 {
@@ -153,7 +159,10 @@ namespace ProjetoFinalProg1.Views
                     if (viagem.AeroportoDeDestino != null) 
                         loop = false;
                     else
+                    {
+                        Console.WriteLine("Não foi encontrado nenhum aeroporto com esse identificador!");
                         loop = true;
+                    }
                 }
                 else
                 {
@@ -242,7 +251,25 @@ namespace ProjetoFinalProg1.Views
             if (viagem != null)
             {
                 Console.WriteLine($"ID da viagem: {viagem.IdViagem}");
-                //Console.WriteLine($"Numero de poltronas: {viagem.NumeroDePoltronas}");
+                Console.WriteLine($"Aeronave: {viagem.Aeronave.IdAeronave}");
+                Console.WriteLine($"Aeropoorto de origem: {viagem.AeroportoDeOrigem.NomeAeroporto}");
+                Console.WriteLine($"Aeropoorto de destino: {viagem.AeroportoDeDestino.NomeAeroporto}");
+                Console.WriteLine($"Hora de saída prevista: {viagem.HoraDeSaida}");
+                Console.WriteLine($"Hora de chegada prevista: {viagem.HoraPrevistaDeChegada}");
+
+                viagemController.GeraListaPoltronas(viagem);
+                int numeroPoltronasOcupadas = 0;
+                int numeroPoltronasLivres = 0;
+                foreach (var poltrona in viagem.Poltronas)
+                {
+                    if (poltrona.Livre)
+                        numeroPoltronasLivres++;
+                    else
+                        numeroPoltronasOcupadas++;
+                }
+
+                Console.WriteLine($"Nº de Poltronas livres: {numeroPoltronasLivres}");
+                Console.WriteLine($"Nº de Poltronas ocupadas: {numeroPoltronasOcupadas}");
 
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey(true); 

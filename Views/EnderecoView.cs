@@ -26,7 +26,23 @@ namespace ProjetoFinalProg1.Views
             endereco.Rua = Console.ReadLine();
             
             Console.WriteLine("Número:");
-            endereco.Numero = Convert.ToInt16(Console.ReadLine());
+
+            bool loop;
+            bool conversaoSucedida;
+            do {    
+                conversaoSucedida = int.TryParse(Console.ReadLine(), out int numero);
+                
+                if (conversaoSucedida)
+                {
+                    endereco.Numero = numero;
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida! Tente novamente");
+                    loop = true;
+                }
+            } while (loop);
 
             Console.WriteLine("Bairro:");
             endereco.Bairro = Console.ReadLine();

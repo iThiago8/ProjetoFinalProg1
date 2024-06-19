@@ -15,6 +15,12 @@ namespace ProjetoFinalProg1.Models
 
         public int IdPoltrona { get; set; }
         public TipoPoltrona Tipo { get; set; }
-        public bool Ocupada { get; set; }
+        public bool Livre { get; set; }
+
+        public Poltrona()
+        {
+            Livre = true;
+        }
     }
+    
 }

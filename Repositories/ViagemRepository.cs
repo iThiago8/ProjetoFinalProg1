@@ -34,7 +34,7 @@ namespace ProjetoFinalProg1.Repositories
                 {
                     IdPoltrona = i,
                     Tipo = (i % 2 == 0) ? TipoPoltrona.Janela : TipoPoltrona.Corredor,
-                    Ocupada = false
+                    Livre = true
                 };
                 viagem.Poltronas.Add(poltrona);
             }
