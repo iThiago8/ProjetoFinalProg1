@@ -26,8 +26,9 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Viagens.Add(viagem);
         }
 
-        public void GeraListaPoltronas(Viagem viagem)
+        public List<Poltrona> GeraListaPoltronas(Viagem viagem)
         {
+            List<Poltrona> poltronas = [];
             for (int i = 1; i <= viagem.Aeronave.NumeroDePoltronas; i++)
             {
                 Poltrona poltrona = new()
@@ -36,11 +37,13 @@ namespace ProjetoFinalProg1.Repositories
                     Tipo = (i % 2 == 0) ? TipoPoltrona.Janela : TipoPoltrona.Corredor,
                     Livre = true
                 };
-                viagem.Poltronas.Add(poltrona);
+                poltronas.Add(poltrona);
             }
+
+            return poltronas;
         }
 
-        public Viagem? BuscarPorId(int id)
+        public Viagem? BuscarPorId(int? id)
         {
             foreach (var viagem in DataSet.Viagens)
             {

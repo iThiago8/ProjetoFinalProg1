@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using ProjetoFinalProg1.Utils;
 using ProjetoFinalProg1.Models;
 using ProjetoFinalProg1.Controllers;
 
@@ -12,8 +13,10 @@ namespace ProjetoFinalProg1.Views
     public class AeronaveView
     {
         private AeronaveController aeronaveController;
+        private EntradaConsole entradaConsole;
         public AeronaveView()
         {
+            entradaConsole = new();
             aeronaveController = new();
             Init();
         }
@@ -94,21 +97,8 @@ namespace ProjetoFinalProg1.Views
 
             Aeronave aeronave = new();
             Console.WriteLine("Qual o número de poltronas da aeronave?");
-            
-            bool loop = true;
-            do {
-                try
-                {
-                    int NumeroDePoltronas = Convert.ToInt16(Console.ReadLine());
-                    aeronave.NumeroDePoltronas = NumeroDePoltronas;
-
-                    loop = false;
-                }
-                catch
-                {
-                    Console.WriteLine("Entrada inválida. Tente novamente!");
-                }
-            } while (loop);
+            int numeroDePoltronas = entradaConsole.LerNumeroInteiro();
+            aeronave.NumeroDePoltronas = numeroDePoltronas;
 
             try 
             {
@@ -135,27 +125,14 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("****************");
             Console.WriteLine("");
 
-            bool loop = true; 
-            int id = 0;
-            do {
-                Console.WriteLine("Digite o ID da aeronave que deseja buscar");
-                try
-                {
-                    id = Convert.ToInt16(Console.ReadLine());
-                    loop = false;
-                }
-                catch
-                {
-                    Console.WriteLine("Entrada inválida! Tente novamente.");
-                }
-            } while (loop);
+            Console.WriteLine("Digite o ID da aeronave que deseja buscar");
+            int id = entradaConsole.LerNumeroInteiro();
 
             Aeronave aeronave = aeronaveController.BuscarPorId(id);
 
             if (aeronave != null)
             {
-                Console.WriteLine($"ID da aeronave: {aeronave.IdAeronave}");
-                Console.WriteLine($"Numero de poltronas: {aeronave.NumeroDePoltronas}");
+                Console.WriteLine(aeronave.ToString());
 
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey(true); 
@@ -206,22 +183,7 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("****************");
             Console.WriteLine("");
 
-            int id = 0;
-            bool loop;
-            do {
-                Console.WriteLine("Digite o id da aeronave que deseja remover:");
-                try
-                {
-                    id = Convert.ToInt16(Console.ReadLine());
-                    loop = false;
-                }
-                catch 
-                {
-                    Console.WriteLine("Entrada inválida. Tente novamente!");
-                    loop = true;
-                }
-
-            } while (loop);
+            int id = entradaConsole.LerNumeroInteiro();
 
             try
             {

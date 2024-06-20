@@ -26,7 +26,7 @@ namespace ProjetoFinalProg1.Repositories
             DataSet.Aeroportos.Add(aeroporto);
         }
 
-        public Aeroporto? BuscarPorId(int id)
+        public Aeroporto? BuscarPorId(int? id)
         {
             foreach (var aeroporto in DataSet.Aeroportos)
             {
