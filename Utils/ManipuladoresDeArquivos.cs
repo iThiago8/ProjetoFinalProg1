@@ -7,6 +7,17 @@ namespace ProjetoFinalProg1.Utils
 {
     public class ManipuladoresDeArquivos
     {
-        
+        private const string diretorio = @"C:\Users\thiag\OneDrive\Documents\ArquivosProjetoProg1";
+        public static void ExportarDelimitado(string nomeArquivo, string conteudoArquivo)
+        {
+            string caminhoArquivo = @$"{diretorio}\{nomeArquivo}";
+
+            if (!Directory.Exists(diretorio))  
+                Directory.CreateDirectory(diretorio);
+
+            using StreamWriter streamWriter = File.CreateText(caminhoArquivo);
+            streamWriter.Write(conteudoArquivo);
+
+        }
     }
 }

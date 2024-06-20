@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProjetoFinalProg1.Models;
 using ProjetoFinalProg1.Repositories;
+using ProjetoFinalProg1.Utils;
 
 namespace ProjetoFinalProg1.Controllers
 {
@@ -23,7 +24,7 @@ namespace ProjetoFinalProg1.Controllers
         {
             return viagemRepository.GeraListaPoltronas(viagem);
         }
-        public Viagem BuscarPorId(int id)
+        public Viagem? BuscarPorId(int? id)
         {
             return viagemRepository.BuscarPorId(id);
         }
@@ -34,6 +35,20 @@ namespace ProjetoFinalProg1.Controllers
         public void RemoverViagem(Viagem viagem)
         {
             viagemRepository.RemoverViagem(viagem);
+        }
+
+        public void ExportarDelimitado()
+        {
+            List<Viagem> listaViagens = ListarViagens();
+
+            string conteudoArquivo = string.Empty;
+
+            foreach (var viagem in listaViagens)
+                conteudoArquivo += $"{viagem.FormatarParaDelimitado()}";
+
+            string nomeArquivo = $"Viagens_{DateTimeOffset.Now.ToUnixTimeSeconds()}.txt";
+
+            ManipuladoresDeArquivos.ExportarDelimitado(nomeArquivo, conteudoArquivo);
         }
     }
 }

@@ -17,6 +17,28 @@ namespace ProjetoFinalProg1.Models
         public List<Poltrona> Poltronas { get; set; }
             = new();
 
+        public string FormatarParaDelimitado()
+        {
+            int numeroPoltronasOcupadas = 0;
+            int numeroPoltronasLivres = 0;
+            foreach (var poltrona in Poltronas)
+            {
+                if (poltrona.Livre)
+                    numeroPoltronasLivres++;
+                else
+                    numeroPoltronasOcupadas++;
+            }
+
+            return 
+                $"{IdViagem};"
+                + $"{Aeronave?.IdAeronave};"
+                + $"{AeroportoDeOrigem?.NomeAeroporto};"
+                + $"{AeroportoDeDestino?.NomeAeroporto};"
+                + $"{HoraDeSaida};"
+                + $"{HoraPrevistaDeChegada};"
+                + $"{numeroPoltronasLivres};"
+                + $"{numeroPoltronasOcupadas}";
+        }
         public override string ToString()
         {
             int numeroPoltronasOcupadas = 0;

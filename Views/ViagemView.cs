@@ -26,25 +26,25 @@ namespace ProjetoFinalProg1.Views
         }
         public void Init()
         {
-            Console.WriteLine("");
-            Console.WriteLine("*****************");
-            Console.WriteLine("MENU DE VIAGENS");
-            Console.WriteLine("*****************");
-            Console.WriteLine("");
-
-            Console.WriteLine("O que deseja fazer?");
 
             bool loop = true;
             do
             {
                 Console.WriteLine("");
+                Console.WriteLine("*****************");
+                Console.WriteLine("MENU DE VIAGENS");
+                Console.WriteLine("*****************");
+                Console.WriteLine("");
+
+                Console.WriteLine("O que deseja fazer?");
+                Console.WriteLine("");
                 Console.WriteLine("1 - Cadastrar uma nova viagem");
                 Console.WriteLine("2 - Buscar uma viagem");
                 Console.WriteLine("3 - Listar todas as viagens");
                 Console.WriteLine("4 - Remover uma viagem");
+                Console.WriteLine("5 - Exportar relatório delimitado");
                 Console.WriteLine("0 - SAIR");
                 Console.WriteLine("");
-
 
                 int escolha;
 
@@ -68,6 +68,10 @@ namespace ProjetoFinalProg1.Views
 
                         case 4:
                             RemoverViagem();
+                            break;
+                        
+                        case 5: 
+                            ExportarDelimitado();
                             break;
 
                         case 0:
@@ -211,9 +215,9 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("");
 
             Console.WriteLine("Digite o ID da viagem que deseja buscar");
-            int id = entradaConsole.LerNumeroInteiro();
+            int? id = entradaConsole.LerNumeroInteiro();
 
-            Viagem viagem = viagemController.BuscarPorId(id);
+            Viagem? viagem = viagemController.BuscarPorId(id);
 
             if (viagem != null)
             {
@@ -270,7 +274,16 @@ namespace ProjetoFinalProg1.Views
             Console.WriteLine("Digite o id da viagem que deseja remover:");
             int id = entradaConsole.LerNumeroInteiro();
 
-            Viagem viagemRemover = viagemController.BuscarPorId(id);
+            Viagem? viagemRemover = viagemController.BuscarPorId(id);
+            if (viagemRemover == null)
+            {
+                Console.WriteLine("Não foi encontrada nenhuma viagem com esse id!");
+
+                Console.WriteLine("Pressione qualquer tecla para voltar ao menu de viagens...");
+                Console.ReadKey(true);  
+                return;
+            }
+
             Console.WriteLine(viagemRemover.ToString());
 
             Console.WriteLine("Tem certeza que deseja remover a viagem acima?");
@@ -301,9 +314,23 @@ namespace ProjetoFinalProg1.Views
                 case 2:
                     Console.WriteLine("Cancelando operação...");
                     break;
-                default:
+                case 3:
                     Console.WriteLine("Opção inválida. Tente novamente.");
                     break;
+            }
+        }
+        public void ExportarDelimitado()
+        {
+            try
+            {
+                viagemController.ExportarDelimitado();
+
+                Console.WriteLine();
+                Console.WriteLine("Arquivo exportado com sucesso!");
+            }
+            catch
+            {
+                Console.WriteLine("Houve uma falha ao exportar o arquivo. Favor tentar novamente mais tarde.");
             }
         }
     }
