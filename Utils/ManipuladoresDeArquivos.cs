@@ -7,7 +7,7 @@ namespace ProjetoFinalProg1.Utils
 {
     public class ManipuladoresDeArquivos
     {
-        private const string diretorio = @"C:\Users\thiag\OneDrive\Documents\ArquivosProjetoProg1";
+        private const string diretorio = @"C:\Users\411730\Documents\DocumentosDelimitados";
         public static void ExportarDelimitado(string nomeArquivo, string conteudoArquivo)
         {
             string caminhoArquivo = @$"{diretorio}\{nomeArquivo}";

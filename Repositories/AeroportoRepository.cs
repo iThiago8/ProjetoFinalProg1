@@ -20,9 +20,11 @@ namespace ProjetoFinalProg1.Repositories
 
             return ++id;
         }
-        public void CadastrarAeroporto(Aeroporto aeroporto)
+        public void CadastrarAeroporto(Aeroporto aeroporto, bool GeraId = true)
         {
-            aeroporto.IdAeroporto = GeraProximoId();
+            if (GeraId)
+                aeroporto.IdAeroporto = GeraProximoId();
+
             DataSet.Aeroportos.Add(aeroporto);
         }
 
@@ -31,6 +33,15 @@ namespace ProjetoFinalProg1.Repositories
             foreach (var aeroporto in DataSet.Aeroportos)
             {
                 if (aeroporto.IdAeroporto == id)
+                    return aeroporto;
+            }
+            return null;
+        }
+        public Aeroporto? BuscarPorNome(string nome)
+        {
+            foreach (var aeroporto in DataSet.Aeroportos)
+            {
+                if (nome == aeroporto.NomeAeroporto)
                     return aeroporto;
             }
             return null;
@@ -48,7 +59,7 @@ namespace ProjetoFinalProg1.Repositories
         
         public bool ImportarDelimitado(string linha, string delimitador)
         {
-            /*
+            
             if (string.IsNullOrWhiteSpace(linha))
                 return false;
 
@@ -57,16 +68,28 @@ namespace ProjetoFinalProg1.Repositories
             if (data.Count() < 1)
                 return false;
 
-            Aeroporto viagem = new Viagem
+            Endereco endereco = new Endereco
             {
-                IdViagem = Convert.ToInt32((data[0] == null ? 0 : data[0])),
-                Aeronave = (data[1] == null ? AeronaveRepository.BuscarPorId(idAeronaveConvertida) : data[1]),
-                EmailAddress = (data[2] == null ? string.Empty : data[2]),
+                IdEndereco = int.Parse(data[2]), 
+                Rua = data[3],
+                Numero = int.Parse(data[4]),
+                Bairro = data[5],
+                Cidade = data[6],
+                Estado = data[7],
+                Pais = data[8],
+                CEP = data[9],
+            };
+
+            Aeroporto aeroporto = new Aeroporto
+            {
+                IdAeroporto = Convert.ToInt32(data[0] == null ? 0 : data[0]),
+                NomeAeroporto = data[1],
+                Endereco = endereco,
 
             };
 
-            AdicionarViagem(viagem, false);
-            */
+            CadastrarAeroporto(aeroporto, false);
+            
             return true;
         }
     }

@@ -43,6 +43,7 @@ namespace ProjetoFinalProg1.Views
                 Console.WriteLine("3 - Listar todas as viagens");
                 Console.WriteLine("4 - Remover uma viagem");
                 Console.WriteLine("5 - Exportar relatório delimitado");
+                Console.WriteLine("6 - Importar relatório delimitado");
                 Console.WriteLine("0 - SAIR");
                 Console.WriteLine("");
 

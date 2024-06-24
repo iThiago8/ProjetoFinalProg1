@@ -61,7 +61,7 @@ namespace ProjetoFinalProg1.Controllers
             try
             {
                 if (!File.Exists(filePath))
-                    return "ERRO: Arquivo de importaÁ„o n„o encontrado.";
+                    return "ERRO: Arquivo de importa√ß√£o n√£o encontrado.";
 
                 using StreamReader sr = new(filePath);
 
