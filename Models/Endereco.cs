@@ -19,5 +19,17 @@ namespace ProjetoFinalProg1.Models
         {
             return $"{Rua}, numero {Numero} - {Bairro}, {Cidade}, {Pais} - {CEP}";
         }
+        public string FormatarParaDelimitado()
+        {
+            return
+                $"{IdEndereco};"
+                + $"{Rua};"
+                + $"{Numero};"
+                + $"{Bairro};"
+                + $"{Cidade};"
+                + $"{Estado};"
+                + $"{Pais};"
+                + $"{CEP}";
+        }
     }
 }

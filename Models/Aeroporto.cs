@@ -16,5 +16,13 @@ namespace ProjetoFinalProg1.Models
             + $"Nome: {NomeAeroporto}\n"
             + $"Endereço: {Endereco}\n";
         }
+
+        public string FormatarParaDelimitado()
+        {
+            return
+                $"{IdAeroporto};"
+                + $"{NomeAeroporto};"
+                + $"{Endereco?.FormatarParaDelimitado()}\n";
+        }
     }
 }

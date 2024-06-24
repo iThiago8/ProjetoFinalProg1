@@ -35,9 +35,9 @@ namespace ProjetoFinalProg1.Views
                 Console.WriteLine("2 - Buscar um aeroporto");
                 Console.WriteLine("3 - Listar todos os aeroportos");
                 Console.WriteLine("4 - Remover um aeroporto");
+                Console.WriteLine("5 - Exportar relatório delimitado");
                 Console.WriteLine("0 - SAIR");
                 Console.WriteLine("");
-
 
                 int escolha;
 
@@ -61,6 +61,10 @@ namespace ProjetoFinalProg1.Views
 
                         case 4:
                             RemoverAeroporto();
+                            break;
+
+                        case 5:
+                            ExportarDelimitado();
                             break;
 
                         case 0:
@@ -227,6 +231,20 @@ namespace ProjetoFinalProg1.Views
 
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey(true);
+            }
+        }
+        public void ExportarDelimitado()
+        {
+            try
+            {
+                aeroportoController.ExportarDelimitado();
+
+                Console.WriteLine();
+                Console.WriteLine("Arquivo exportado com sucesso!");
+            }
+            catch
+            {
+                Console.WriteLine("Houve uma falha ao exportar o arquivo. Favor tentar novamente mais tarde.");
             }
         }
 
