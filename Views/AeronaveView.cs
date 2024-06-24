@@ -38,6 +38,8 @@ namespace ProjetoFinalProg1.Views
                 Console.WriteLine("2 - Buscar uma aeronave");
                 Console.WriteLine("3 - Listar todas as aeronaves");
                 Console.WriteLine("4 - Remover uma aeronave");
+                Console.WriteLine("5 - Exportar relatório delimitado");
+                Console.WriteLine("6 - Importar relatório delimitado");
                 Console.WriteLine("0 - SAIR");
                 Console.WriteLine("");
 
@@ -66,6 +68,13 @@ namespace ProjetoFinalProg1.Views
                             RemoverAeronave();
                             break;
 
+                        case 5:
+                            ExportarDelimitado();
+                            break;
+
+                        case 6:
+                            ImportarDelimitado();
+                            break;
                         case 0:
                             Console.WriteLine("Voltando ao menu inicial..."); //Colocar um timer para sair 
                             loop = false;
@@ -201,7 +210,41 @@ namespace ProjetoFinalProg1.Views
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey(true);
             }
-        }
 
+        }
+        public void ExportarDelimitado()
+        {
+            try
+            {
+                aeronaveController.ExportarDelimitado();
+
+                Console.WriteLine();
+                Console.WriteLine("Arquivo exportado com sucesso!");
+            }
+            catch
+            {
+                Console.WriteLine("Houve uma falha ao exportar o arquivo. Favor tentar novamente mais tarde.");
+            }
+        }
+        public void ImportarDelimitado()
+        {
+            string? caminhoArquivo = string.Empty;
+            do
+            {
+                Console.WriteLine("Informe o caminho do arquivo: ");
+                caminhoArquivo = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(caminhoArquivo));
+
+            string? delimitador;
+            do
+            {
+                Console.WriteLine("Informe o delimitador do arquivo: ");
+                delimitador = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(delimitador));
+
+            string resposta = aeronaveController.ImportarDelimitado(caminhoArquivo, delimitador);
+
+            Console.WriteLine(resposta);
+        }
     }
 }

@@ -14,5 +14,11 @@ namespace ProjetoFinalProg1.Models
             return $"ID: {IdAeronave}\n"
                 + $"Número de poltronas: {NumeroDePoltronas}\n";
         }
+        public string FormatarParaDelimitado()
+        {
+            return
+                $"{IdAeronave};"
+                + $"{NumeroDePoltronas}\n";
+        }
     }
 }
