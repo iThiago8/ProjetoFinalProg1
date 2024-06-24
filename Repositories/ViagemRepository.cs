@@ -80,8 +80,14 @@ namespace ProjetoFinalProg1.Repositories
             {
                 IdViagem = Convert.ToInt32((data[0] == null ? 0 : data[0])),
                 Aeronave = data[1] == null ? aeronaveRepository.BuscarPorId(idAeronaveConvertida) : null,
+                /*
                 AeroportoDeDestino = (data[2] == null ? string.Empty : data[2]),
-
+                
+                AeroportoDeDestino
+                HoraDeSaida
+                HoraPrevistaDeChegada
+                Poltronas
+                */
             };
 
             AdicionarViagem(viagem, false);
