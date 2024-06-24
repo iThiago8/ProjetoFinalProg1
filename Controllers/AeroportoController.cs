@@ -46,6 +46,55 @@ namespace ProjetoFinalProg1.Controllers
 
             ManipuladoresDeArquivos.ExportarDelimitado(nomeArquivo, conteudoArquivo);
         }
+        public string ImportarDelimitado(string filePath, string delimiter)
+        {
+            bool resultado = true;
+            string msgRetorno = string.Empty;
+            int contadorLinhasSucesso = 0;
+            int contadorLinhasErro = 0;
+            int contadorLinhasTotais = 0;
+
+            try
+            {
+                if (!File.Exists(filePath))
+                    return "ERRO: Arquivo de importação não encontrado.";
+
+                using StreamReader sr = new(filePath);
+
+                string line = string.Empty;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    contadorLinhasTotais++;
+
+                    if (!aeroportoRepository
+                        .ImportarDelimitado(line, delimiter))
+                    {
+                        resultado = false;
+                        contadorLinhasErro++;
+                    }
+                    else
+                    {
+                        contadorLinhasSucesso++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                msgRetorno = $"ERRO: {ex.Message}";
+            }
+
+            if (resultado)
+                msgRetorno += "\nDados importados com sucesso";
+            else
+                msgRetorno += "\nDados parcialmente importados";
+
+            msgRetorno += $"\nTotal de linhas: {contadorLinhasTotais}";
+            msgRetorno += $"\nSucesso: {contadorLinhasSucesso}";
+            msgRetorno += $"\nErro: {contadorLinhasErro}";
+
+            return msgRetorno;
+        }
 
     }
 }

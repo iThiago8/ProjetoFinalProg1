@@ -45,5 +45,29 @@ namespace ProjetoFinalProg1.Repositories
         {
             DataSet.Aeroportos.Remove(aeroporto);
         }
+        
+        public bool ImportarDelimitado(string linha, string delimitador)
+        {
+            /*
+            if (string.IsNullOrWhiteSpace(linha))
+                return false;
+
+            string[] data = linha.Split(delimitador);
+
+            if (data.Count() < 1)
+                return false;
+
+            Aeroporto viagem = new Viagem
+            {
+                IdViagem = Convert.ToInt32((data[0] == null ? 0 : data[0])),
+                Aeronave = (data[1] == null ? AeronaveRepository.BuscarPorId(idAeronaveConvertida) : data[1]),
+                EmailAddress = (data[2] == null ? string.Empty : data[2]),
+
+            };
+
+            AdicionarViagem(viagem, false);
+            */
+            return true;
+        }
     }
 }

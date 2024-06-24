@@ -9,6 +9,7 @@ namespace ProjetoFinalProg1.Repositories
 {
     public class ViagemRepository
     {
+        private AeronaveRepository? aeronaveRepository;
         private int GeraProximoId()
         {
             int id = 0;
@@ -20,7 +21,7 @@ namespace ProjetoFinalProg1.Repositories
 
             return ++id;
         }
-        public void AdicionarViagem(Viagem viagem)
+        public void AdicionarViagem(Viagem viagem, bool gerarId = true)
         {
             viagem.IdViagem = GeraProximoId();
             DataSet.Viagens.Add(viagem);
@@ -62,5 +63,31 @@ namespace ProjetoFinalProg1.Repositories
         {
             DataSet.Viagens.Remove(viagem);
         }
+        
+        public bool ImportarDelimitado(string linha, string delimitador)
+        {
+            if (string.IsNullOrWhiteSpace(linha))
+                return false;
+
+            string[] data = linha.Split(delimitador);
+
+            if (data.Count() < 1)
+                return false;
+
+            int idAeronaveConvertida = int.Parse(data[1]);
+
+            Viagem viagem = new Viagem
+            {
+                IdViagem = Convert.ToInt32((data[0] == null ? 0 : data[0])),
+                Aeronave = data[1] == null ? aeronaveRepository.BuscarPorId(idAeronaveConvertida) : null,
+                AeroportoDeDestino = (data[2] == null ? string.Empty : data[2]),
+
+            };
+
+            AdicionarViagem(viagem, false);
+
+            return true;
+        }
+        
     }
 }

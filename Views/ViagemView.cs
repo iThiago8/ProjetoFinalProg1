@@ -74,6 +74,9 @@ namespace ProjetoFinalProg1.Views
                             ExportarDelimitado();
                             break;
 
+                        case 6:
+                            ImportarDelimitado();
+                            break;
                         case 0:
                             Console.WriteLine("Voltando ao menu inicial..."); //Colocar um timer para sair 
                             loop = false;
@@ -332,6 +335,26 @@ namespace ProjetoFinalProg1.Views
             {
                 Console.WriteLine("Houve uma falha ao exportar o arquivo. Favor tentar novamente mais tarde.");
             }
+        }
+        public void ImportarDelimitado()
+        {
+            string? caminhoArquivo = string.Empty;
+            do
+            {
+                Console.WriteLine("Informe o caminho do arquivo: ");
+                caminhoArquivo = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(caminhoArquivo));
+
+            string? delimitador;
+            do
+            {
+                Console.WriteLine("Informe o delimitador do arquivo: ");
+                delimitador = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(delimitador));
+
+            string resposta = viagemController.ImportarDelimitado(caminhoArquivo, delimitador);
+
+            Console.WriteLine(resposta);
         }
     }
 }
